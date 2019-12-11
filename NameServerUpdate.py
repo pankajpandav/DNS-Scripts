@@ -10,9 +10,9 @@ logger = logging.getLogger("dns-ns-update")
 logger.setLevel(int(os.environ.get("Logging", logging.DEBUG)))
 
 # defining the domain names and clients required
-domainnames = ['everythingiknow.net'] # You can give list of domain names for which you need to update NameServers
+domainnames = [] # You can provide the list of domain names for which you need to update NameServers
 r53 = boto3.client('route53')
-r53dns = boto3.client('route53domains')
+r53dns = boto3.client('route53domains', region_name='us-east-1')
 
 def update_dns_nameservers():
     for domainname in domainnames:

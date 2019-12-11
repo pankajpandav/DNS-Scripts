@@ -3,6 +3,7 @@ import os
 import datetime
 import json
 import logging
+import time
 from botocore.exceptions import ClientError
 
 # Setting up Logging
@@ -11,7 +12,7 @@ logger = logging.getLogger("dns-ns-update")
 logger.setLevel(int(os.environ.get("Logging", logging.DEBUG)))
 
 # defining the domain names and clients required
-domainnames = ['brooksreach.com.au','retirebirtinya.com.au','stocklandliving.com.au','mainwaringcollection.com.au','siennawood.com.au','siennawood.com','stocklandhomefinance.com','cardinalrsvp.com.au','caloundrasouthhallscreek.com.au','cardinalfreeman.com.au','vertu.com.au','riverstonecrossing.com.au','stocklandretire.com.au','mccauleysbeach.com.au','valewa.com.au','townside.com.au','oceansidekawana.com.au','oceansidekawana.com','oceansidesunshinecoast.com','farringtongrove.com.au','northlakesbusiness.com.au','northlakesbusinesspark.com.au','stocklandcardinalfreeman.com.au','whitemanedge.com.au','backyardbonus.com','pointcook.com.au','stocklandtownsville.com.au','watersidecorporate.com.au','ingleburnlogisticspark.com.au','stocklandcorporatereporting2014.com.au','corimbia.com.au','stockland-iscope.com.au','willowdaleretire.com.au','siennawoods.com.au','hundredhills.com.au','sandonpointplanning.com.au','waterfrontpl.com.au','arvehomes.com','stocklandpointlonsdale.com','stocklandcammeray.com.au','macarthurgardens.com.au','stocklandpointlonsdale.com.au','stocklandinvestmentproperty.com.au','portadelaidedc.com.au'] # You can give list of domain names for which you need to update NameServers
+domainnames = ['stocklandliving.com.au','siennawood.com.au','siennawood.com','stocklandhomefinance.com','vertu.com.au','stocklandretire.com.au','stocklandtownsville.com.au','ingleburnlogisticspark.com.au','macarthurgardens.com.au','stocklandinvestmentproperty.com.au'] # You can give list of domain names for which you need to update NameServers
 r53 = boto3.client('route53')
 #r53dns = boto3.client('route53domains')
 
@@ -26,6 +27,7 @@ def create_hosted_zones():
                 CallerReference = now.strftime("%Y%m%d%H%M%S")
             )
             logger.info(json.dumps(response, default=str))
+            time.sleep(1)
         except ClientError as err:
             logger.error("Error Occurred during Hosted Zone creation")
             logger.error(err)
