@@ -4,7 +4,7 @@ import datetime
 import json
 import logging
 from botocore.exceptions import ClientError
-# Setting up Some Logging
+# Setting up Logging
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m%d%Y %I:%M:%S %p')
 logger = logging.getLogger("dns-ns-update")
 logger.setLevel(int(os.environ.get("Logging", logging.DEBUG)))
